@@ -24,7 +24,6 @@ public class Author extends BaseEntity{
 
     private String country;
 
-
     @OneToMany
     @JoinColumn(name = "author_id")
     @ToString.Exclude
