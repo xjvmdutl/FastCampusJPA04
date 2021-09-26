@@ -1,5 +1,6 @@
 package com.fastcampus.jpa.FastCampusJPA04.service;
 
+import com.fastcampus.jpa.FastCampusJPA04.domain.Book;
 import com.fastcampus.jpa.FastCampusJPA04.repository.AuthorRepository;
 import com.fastcampus.jpa.FastCampusJPA04.repository.BookRepository;
 import org.junit.jupiter.api.Test;
@@ -20,12 +21,25 @@ class BookServiceTest {
     @Test
     public void transactionTest(){
         try {
-            bookService.putBookAndAuthor();
-        }catch (Exception e){
+            //bookService.putBookAndAuthor();
+            bookService.put();
+        }catch (RuntimeException e){
             //여러 checked Exception, unchecked Exception이 섞여 발생된다.
             System.out.println(">>> " + e.getMessage());
         }
         System.out.println("books : "+bookRepository.findAll());
         System.out.println("authors : "+authorRepository.findAll());
     }
+
+    @Test
+    public void isolationTest(){
+        Book book = new Book();
+        book.setName("JPA 강의");
+
+        bookRepository.save(book);
+
+        bookService.get(1L);
+        System.out.println(">>> " + bookRepository.findAll());
+    }
+
 }
