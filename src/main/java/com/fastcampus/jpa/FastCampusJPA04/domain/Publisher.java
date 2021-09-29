@@ -21,9 +21,17 @@ public class Publisher extends BaseEntity {
 
     private String name;
 
-    @OneToMany
+    /*
+        orphanRemoval : setter를 통해 null을 세팅시켜 DB에서 자동으로 제거할때 사용
+        remove cascade : setter를 통해 null을 세팅시키지만 DB에서 자동 제거가 안된다.
+     */
+    @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "publisher_id")
+    @ToString.Exclude
     private List<Book> books = new ArrayList<>();
 
+    public void addBook(Book book){
+        this.books.add(book);
+    }
 
 }

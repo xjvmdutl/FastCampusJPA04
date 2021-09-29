@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
+
+
     @Test
     public void bookTest(){
         Book book = new Book();
@@ -20,5 +22,16 @@ public class BookRepositoryTest {
         System.out.println(bookRepository.findAll());
     }
 
+    @Test
+    public void softDelete(){
+        bookRepository.findAll().forEach(System.out::println);
+        System.out.println(bookRepository.findById(3L));
+        //삭제된 데이터가 나오게 된다.
+
+        //bookRepository.findByCategoryIsNull().forEach(System.out::println);
+
+        //bookRepository.findAllByDeletedFalse().forEach(System.out::println);
+        //bookRepository.findByCategoryIsNullAndDeletedFalse().forEach(System.out::println);
+    }
 
 }
